@@ -1,0 +1,48 @@
+#!/bin/bash
+echo "First line of file_one" > file\_one
+echo "Second line of file_one" >> file\_one
+echo "Third line of file_one" >> file\_one
+
+echo "First line of file_two" > file\_two
+echo "Second line of file_two" >> file\_two
+echo "Third line of file_two" >> file\_two
+
+echo "First line of file_three" > file\_three
+echo "Second line of file_three" >> file\_three
+echo "Third line of file_three" >> file\_three
+
+echo "First line of file_four" > file\_four
+echo "Second line of file_four" >> file\_four
+echo "Third line of file_four" >> file\_four
+
+echo "content of file_one"
+cat file\_one
+echo "========================"
+
+echo "content of file_two"
+cat file\_two
+echo "========================"
+
+echo "content of file_three"
+cat file\_three
+echo "========================"
+
+echo "content of file_four"
+cat file\_four
+echo "========================"
+
+cp file\_four JOINTFILE
+cat file\_one >> JOINTFILE
+cat file\_two >> JOINTFILE
+cat file\_three >> JOINTFILE
+
+echo "content of JOINTFILE"
+cat JOINTFILE
+
+echo "listing of current directory"
+ls
+
+rm file\_one file\_two file\_three file\_four JOINTFILE
+
+echo "listing of current directory"
+ls
