@@ -1,0 +1,45 @@
+#!/bin/bash
+
+echo "creating file Garbage"
+echo "*** garbage ***" > Garbage
+
+echo "creating Aux_Dir"
+mkdir Aux\_Dir
+
+echo "moving Garbage to Aux_Dir"
+mv Garbage Aux\_Dir
+
+echo "listing of Aux_Dir"
+ls Aux\_Dir
+
+echo "displaying Garbage"
+cat Aux\_Dir/Garbage
+
+x=`ls -la | grep Aux\_Dir`
+echo "original permissions of Aux_Dir:" ${x:0:10}
+
+echo "change it to d---rwxrwx"
+chmod a+rwx Aux\_Dir
+chmod u-rwx Aux\_Dir
+x=`ls -la | grep Aux\_Dir`
+echo "new permissions of Aux_Dir:" ${x:0:10} 
+
+echo "change it to drwxr--r--"
+chmod a+rwx Aux\_Dir
+chmod og-wx Aux\_Dir
+x=`ls -la | grep Aux\_Dir`
+echo "new permissions of Aux_Dir:" ${x:0:10} 
+
+echo "change it to drwx--x--x"
+chmod a-rwx Aux\_Dir
+chmod u+rw Aux\_Dir
+chmod a+x Aux\_Dir
+x=`ls -la | grep Aux\_Dir`
+echo "new permissions of Aux_Dir:" ${x:0:10} 
+
+echo "trying to remove Aux_Dir by rm"
+rm Aux\_Dir
+echo "trying to remove Aux_Dir by rmdir"
+rmdir Aux\_Dir
+echo "trying to remove Aux_Dir by rm -r"
+rm -r Aux\_Dir
