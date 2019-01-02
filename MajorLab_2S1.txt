@@ -1,0 +1,129 @@
+#!/bin/bash
+#version B
+
+# create MYDIR
+mkdir MYDIR
+echo "created MYDIR"
+
+# create mydir
+cd MYDIR
+mkdir mydir
+echo "created mydir"
+
+# create the files
+a="my_file"
+for i in {1..13}
+do
+ fname=$a$i
+ echo "This is my_file$i" > $fname
+ x=$(($i+1))
+ echo "Followed by my_file$x" >> $fname
+ y=$(($x+1))
+ echo "And the followed by my_file$y" >> $fname
+done
+echo "This is my_file14" > my_file14
+echo "Followed by my_file15" >> my_file14
+echo "And not followed" >> my_file14
+echo "This is my_file15" > my_file15
+echo "Not followed" >> my_file15
+echo "And then not followed" >> my_file15
+
+# display names of all regular files in MYDIR
+echo "MYDIR listing"
+files=`ls`
+for f in $files
+do
+ if [ -f "$f" ]
+ then
+   echo "$f"
+ fi
+done
+
+# display names of all regular files in mydir
+echo "mydir listing"
+files=`ls mydir`
+for f in $files
+do
+ if [ -f "$f" ]
+ then
+   echo "$f"
+ fi
+done
+
+# move all files containing 1 or 2 from MYDIR to mydir
+files=`ls my_file*`
+for f in $files
+do
+  x=`grep '1\|2' $f`
+  if [ -n "$x" ]
+  then
+    mv $f mydir
+  fi
+done
+
+# display names of all regular files in MYDIR
+echo "MYDIR listing"
+files=`ls`
+for f in $files
+do
+ if [ -f "$f" ]
+ then
+   echo "$f"
+ fi
+done
+
+# create TOTAL
+files=`ls my_file*`
+first=0
+for f in $files
+do
+  if [ first = 0 ]
+  then
+    first=1
+    cat $f > TOTAL
+  else
+    cat $f >> TOTAL
+  fi
+done
+
+# display TOTAL
+echo "TOTAL"
+cat TOTAL
+
+# display names of all regular files in mydir
+echo "mydir listing"
+cd mydir
+files=`ls`
+for f in $files
+do
+ if [ -f "$f" ]
+ then
+   echo "$f"
+ fi
+done
+
+# create total
+files=`ls my_file*`
+first=0
+for f in $files
+do
+  if [ first = 0 ]
+  then
+    first=1
+    cat $f > total
+  else
+    cat $f >> total
+  fi
+done
+
+# display total
+echo "total"
+cat total
+
+# remove mydir
+cd ..
+rm -r mydir
+
+# remove MYDIR
+cd ..
+rm -r MYDIR
