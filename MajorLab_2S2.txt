@@ -1,0 +1,58 @@
+#!/bin/bash
+# version B
+
+# check command line arguments
+
+if [ $# -lt 1 -o $# -gt 3 ]
+then
+  echo "wrong number of command line arguments"
+  echo "Usage: `basename $0` -Y"
+  echo "    or"
+  echo "       `basename $0` -Y <file1>"
+  echo "    or"
+  echo "       `basename $0` -Y <file1> <file2>"
+  exit
+fi
+
+if [ "$1" != "-Y" ]
+then
+  echo "incorrect command line argument: $1"
+  echo "Usage: `basename $0` -Y"
+  echo "    or"
+  echo "       `basename $0` -Y <file1>"
+  echo "    or"
+  echo "       `basename $0` -Y <file1> <file2>"
+  exit
+fi
+
+if [ $# -eq 1 ]
+then
+  echo "Appropriate"
+  exit
+fi
+
+if [ $# -eq 2 ]
+then
+  echo "Appropriate, file1=$2"
+  # loop through and create the lines and ad them to $2
+  echo "$2:1" > "$2"
+  for ((i=2; i<=8; i++))
+  do
+    echo "$2:$i" >> "$2"
+  done
+  exit
+fi
+
+if [ $# -eq 3 ]
+then
+  echo "Appropriate, file1=$2 and file2=$3"
+  echo "$2:1" > "$2"
+  echo "$3:1" > "$3"
+  # loop through and create the lines and ad them to $2, $3
+  for ((i=2; i<=8; i++))
+  do
+    echo "$2:$i" >> "$2"
+    echo "$3:$i" >> "$3"
+  done
+  exit
+fi
